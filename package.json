@@ -1,7 +1,7 @@
 {
-  "name": "angular2-seed",
+  "name": "ng2-app",
   "version": "1.0.0",
-  "description": "A simple starter Angular2 project",
+  "description": "Angular2 project",
   "scripts": {
     "start": "webpack-dev-server --inline --colors --progress --display-error-details --display-cached --port 8080 --content-base src"
   },
@@ -10,26 +10,50 @@
     "url": "git+https://github.com/angular/angular2-seed.git"
   },
   "keywords": [
-    "Angular2",
-    "angular2-seed"
+    "Angular2"
   ],
-  "author": "Rob Wormald <robwormald@gmail.com>",
+  "author": "Vitaliy Davyskiba <vdaviskiba@gmail.com>",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/angular/angular2-seed/issues"
+    "url": "https://github.com/vdavyskiba/ng2-app/issues"
   },
-  "homepage": "https://github.com/angular/angular2-seed#readme",
+  "homepage": "https://github.com/vdavyskiba/ng2-app#readme",
   "devDependencies": {
+    "@reactivex/rxjs": "^5.0.0-beta.0",
+    "copy-webpack-plugin": "^0.3.3",
+    "css-loader": "^0.23.1",
+    "exports-loader": "0.6.2",
+    "expose-loader": "^0.7.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.8.4",
+    "html-webpack-plugin": "^1.7.0",
+    "http-server": "^0.8.5",
+    "imports-loader": "^0.6.4",
+    "istanbul-instrumenter-loader": "^0.1.3",
+    "json-loader": "^0.5.3",
+    "raw-loader": "0.5.1",
+    "reflect-metadata": "0.1.2",
+    "remap-istanbul": "^0.5.1",
+    "rimraf": "^2.4.4",
+    "style-loader": "^0.13.0",
+    "ts-helper": "0.0.1",
     "ts-loader": "^0.7.2",
+    "tsconfig-lint": "^0.2.0",
+    "tslint": "^3.2.0",
+    "tslint-loader": "^2.1.0",
+    "typedoc": "^0.3.12",
     "typescript": "^1.7.3",
+    "typings": "^0.4.1",
+    "url-loader": "^0.5.6",
     "webpack": "^1.12.9",
-    "webpack-dev-server": "^1.14.0"
+    "webpack-dev-server": "^1.12.1",
+    "webpack-md5-hash": "0.0.4"
   },
   "dependencies": {
-    "angular2": "2.0.0-beta.0",
+    "angular2": "2.0.0-beta.1",
     "es6-promise": "3.0.2",
     "es6-shim": "0.33.3",
-    "reflect-metadata": "0.1.2",
+    "es7-reflect-metadata": "^1.4.0",
     "rxjs": "5.0.0-beta.0",
     "zone.js": "0.5.10"
   }

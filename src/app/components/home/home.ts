@@ -1,14 +1,15 @@
 import {Component} from 'angular2/core';
 
+const template = require('./home.html');
+const styles = require('./home.css');
+
 @Component({
-  selector: 'home',
-  templateUrl: 'app/components/home/home.html',
-  styleUrls: ['app/components/home/home.css'],
-  providers: [],
-  directives: [],
-  pipes: []
+  selector: 'div[data-ng-home]',
+  template: template,
+  styles: [styles],
 })
-export class Home {
+
+export default class Home {
 
   constructor() {}
 

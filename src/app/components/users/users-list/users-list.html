@@ -1,0 +1,11 @@
+<h3>Users list</h3>
+
+<input type="text" [(ngModel)]="filterText" placeholder="Filter"/>
+<button (click)="create()">create</button>
+
+<ul>
+  <li *ngFor="#user of users | filter:'username':filterText">
+    <a [routerLink]="['User', {id: user._id}]">{{user.username}}</a>
+    <button (click)="remove(user)">x</button>
+  </li>
+</ul>

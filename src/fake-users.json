@@ -1,0 +1,6 @@
+[
+  {"_id":2,"username":"test","email":"test@testmail.com","active":false,"balance":0,"created":1452358600719,"first":"Test","last":"user","details":"link http://ya.ru"},
+  {"_id":3,"username":"admin","email":"admin@somegmail.com","active":true,"balance":0,"created":1452358670719,"first":"super","last":"root","details":"click to go to https://news.ycombinator.com"},
+  {"_id":4,"username":"guest","email":"guest@somemail.ru","active":true,"balance":25.85,"created":1452359670719,"first":"John","last":"Doe","details":"plain text"},
+  {"_id":5,"username":"user","email":"user@someinbox.com","active":true,"balance":-1.5,"created":1452358600719,"first":"Jane","last":"Dow","details":"Don’t be too lazy to integrate the webpack-dev-server into your development process. It’s an important tool for productivity."}
+]
