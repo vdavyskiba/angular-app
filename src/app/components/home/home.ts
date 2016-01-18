@@ -9,8 +9,4 @@ const styles = require('./home.css');
   styles: [styles],
 })
 
-export default class Home {
-
-  constructor() {}
-
-}
+export default class Home {}

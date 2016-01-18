@@ -1,104 +1,142 @@
 import {Injectable} from "angular2/core";
+import {Observable} from "rxjs/Observable";
 
 import IUser from '../../models/user/user';
 import UsersService from "./users-service";
 import AppLocalStorage from "../../core/services/storage/local-storage";
-import {Observable} from "rxjs/Observable";
+import ObservableCollection from "../../core/collection/observableCollection";
+
+import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/from';
+import {Observer} from "rxjs/Observer";
 
 @Injectable()
 export default class UsersStore {
 
   private storageKey: string = '_users-list_';
 
-  private storage: AppLocalStorage<Set<IUser>>;
+  private storage: AppLocalStorage<Array<IUser>>;
 
-  constructor( private service: UsersService ){
+  constructor(
 
-    this.storage = new AppLocalStorage<Set<IUser>>(this.storageKey);
+    private service: UsersService,
 
-  }
+    private collection: ObservableCollection<IUser>
 
-  list(){
+  ){
 
-    let $this = this;
-
-    //TODO:Shims for cache
-   //return this.service.list();
-
-    return new Observable(observer => {
-
-      $this.service.list().subscribe((users:IUser[]) => {
-
-        /*let result:Array<IUser>;
-
-        let stored:Set<IUser> = $this.storage.restore();
-
-        if(stored && stored.size){
-
-          result = Array.from(stored.values());
-        } else {
-
-          result = users;
-
-          stored = new Set<IUser>(result)
-
-          $this.storage.store(stored)
-        }*/
-
-        observer.next(users)
-
-      });
-    });
+    this.storage = new AppLocalStorage<Array<IUser>>(this.storageKey);
 
   }
 
-  byId(userId:number){
+  public subscribe(callback: Function): void {
 
-    let $this = this;
+    this.collection.collection$.subscribe(res => callback(res));
 
-    //TODO: Shim: server support is not implemented
-    //return this.service.byId(userId)
+    this.collection.load();
+  }
 
-    return new Observable(observer => {
+  public refresh(): void {
 
-      $this.service.list().subscribe(users => {
+    this.list().subscribe(data => this.collection.publish(data));
 
-        let found:IUser = users.find(user => user._id === userId);
+  }
 
-        observer.next(found)
+  public list(): Observable<Array<IUser>> {
 
-      });
+    //return this.service.list();
+
+    return this.mock();
+  }
+
+  public byId(id:number): Observable<IUser> {
+
+    //return this.service.byId(id);
+
+    return this.mock((data:Array<IUser>): IUser => {
+
+      return data.find(item => item._id === id);
+
     });
   }
 
-  add(user:IUser) {
+  public add(user:IUser): Observable<IUser> {
 
-    //TODO: Shim: server support is not implemented
     //return this.service.add(user);
 
-    return new Observable(observer => {
+    return this.mock((data:Array<IUser>): IUser => {
 
-      //this.storage.put()
+      data.push(user);
 
-      observer.next(user)
+      this.storage.store(data);
+
+      return user;
 
     });
 
   }
 
-  remove(id:number) {
+  public update(user:IUser): Observable<IUser> {
 
-    //TODO: Shim: server support is not implemented
+    //return this.service.update(user._id, user);
+
+    return this.mock((data:Array<IUser>): IUser => {
+
+      let idx: number = data.findIndex(item => item._id === user._id);
+
+      data[idx] = user;
+
+      this.storage.store(data);
+
+      return user;
+
+    });
+
+  }
+
+  public remove(id:number): Observable<any> {
+
     //return this.service.remove(id);
 
-    return new Observable(observer => {
+    return this.mock((data:Array<IUser>): number => {
 
-      //this.storage.remove(id)
+      data = data.filter(item => item._id !== id);
 
-      observer.next(id)
+      this.storage.store(data);
+
+      return id;
+
+    });
+  }
+
+  /**
+   * network service mock
+   */
+  private mock(callback?: Function): Observable<any> {
+
+    let $this = this;
+
+    return new Observable((observer) => {
+
+      let next = (data:any): void => {
+        $this.storage.store(data);
+        observer.next(callback ? callback(data) : data);
+      };
+
+      let data: Array<IUser> = $this.storage.restore();
+
+      if(data && data.length){
+
+        next(data);
+
+      } else {
+
+        $this.service.list().subscribe(data => next(data));
+      }
 
     });
 
   }
+
 
 }

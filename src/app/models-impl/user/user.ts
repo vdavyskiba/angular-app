@@ -6,17 +6,25 @@ import IUser from "../../models/user/user";
 export default class User implements IUser{
 
   constructor(
-    public _id:number,
-    public username:string,
-    public email:string,
-    public created:number
-  ){}
+    public _id: number,
+    public username: string,
+    public email: string,
+    public created: number
+  ){
+
+  }
 
   first: string;
   last: string;
   active: boolean;
   balance: number;
   details: string;
+
+
+  public static create(): User {
+    let id: number = Date.now();
+    return new User(id, '', '', Date.now());
+  }
 
 
 }

@@ -4,5 +4,4 @@ import {ROUTER_PROVIDERS} from 'angular2/router';
 
 import App from './app/app';
 
-bootstrap(App, [HTTP_PROVIDERS, ROUTER_PROVIDERS])
-  .catch(err => console.error(err));
+bootstrap(App, [HTTP_PROVIDERS, ROUTER_PROVIDERS]);

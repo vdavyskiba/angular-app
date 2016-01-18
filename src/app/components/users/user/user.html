@@ -1,9 +1,11 @@
-<div *ngIf="user">
+<a [routerLink]="['List']">back</a>
 
-  <h2>{{user.username }}</h2>
+<div>
+
+  <h2>{{user.username | async}}</h2>
 
   <pre>
-    {{user | json}}
+    {{user | async | json}}
   </pre>
 
 </div>

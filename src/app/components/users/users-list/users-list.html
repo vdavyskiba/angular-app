@@ -1,11 +1,12 @@
-<h3>Users list</h3>
-
-<input type="text" [(ngModel)]="filterText" placeholder="Filter"/>
-<button (click)="create()">create</button>
+<div>
+  <input type="text" [(ngModel)]="filterText" placeholder="filter"/>
+  <button (click)="filterText = ''">clear</button>
+</div>
 
 <ul>
   <li *ngFor="#user of users | filter:'username':filterText">
-    <a [routerLink]="['User', {id: user._id}]">{{user.username}}</a>
-    <button (click)="remove(user)">x</button>
+    <span><a [routerLink]="['User', {id: user._id}]">{{user.username}}</a></span>
+    <span><a [routerLink]="['UserEdit', {id: user._id}]">edit</a></span>
+    <span><button (click)="remove(user)">x</button></span>
   </li>
 </ul>

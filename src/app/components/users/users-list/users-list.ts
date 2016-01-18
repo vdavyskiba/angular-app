@@ -1,23 +1,12 @@
 import {Component} from 'angular2/core';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
-import {Observable} from "rxjs/Observable";
+import {Router} from "angular2/router";
 
+//services
 import FilterPipe from "../../../core/pipes/filter";
 import IUser from "../../../models/user/user";
 import UsersStore from "../../../services/users/users-store";
 import User from "../../../models-impl/user/user";
-
-import 'rxjs/add/observable/fromArray';
-import 'rxjs/add/observable/fromPromise';
-import 'rxjs/add/observable/from';
-import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/concat';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/merge';
-import 'rxjs/add/operator/concatAll';
-import 'rxjs/add/operator/mergeAll';
-
 
 const template = require('./users-list.html');
 const styles = require('./users-list.css');
@@ -32,38 +21,31 @@ const styles = require('./users-list.css');
 
 export default class UsersList {
 
-  private inc:number = 10;
+  private users: Array<IUser>;
 
-  users: Array<IUser>;
+  private filterText: string;
 
-  user:IUser;
+  constructor(
 
-  filterText: string;
+    private usersService: UsersStore,
+    private router: Router
 
-  constructor(private usersService: UsersStore) {
+  ) {
 
-    this.usersService.list().subscribe((results:IUser[]) => this.users = results );
+    this.usersService.subscribe(data => this.users = data && data.length ? data : null);
+
+    this.usersService.refresh();
 
   }
 
-  create():void{
-
-    let user:IUser = new User(++this.inc,'testusernamevasya','vasya@.ru', Date.now());
-
-    this.usersService.add(user)
-      .subscribe(result =>{
-        this.users.push(user);
-      });
-  }
-
-  remove(user:IUser):void{
-
+  private remove(user:IUser): void {
+    let $this = this;
     this.usersService.remove(user._id)
-      .subscribe(result => {
-        this.users.splice(this.users.indexOf(user), 1);
+      .subscribe(() => {
+        $this.usersService.refresh();
+        $this.router.parent.navigate(['UsersHome'])
       });
 
   }
-
 
 }

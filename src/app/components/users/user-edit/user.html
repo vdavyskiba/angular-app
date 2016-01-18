@@ -1,0 +1,49 @@
+<a [routerLink]="['List']">back</a>
+
+<div *ngIf="user">
+
+  <form (submit)="submit()">
+
+    <div>
+      <lable>username</lable>
+      <input type="text" required="required" [(ngModel)]="user.username"/>
+    </div>
+
+    <div>
+      <lable>email</lable>
+      <input type="email"  required="required" [(ngModel)]="user.email"/>
+    </div>
+
+    <div>
+      <lable>name</lable>
+      <input type="text" [(ngModel)]="user.first"/>
+    </div>
+
+    <div>
+      <lable>surname</lable>
+      <input type="text" [(ngModel)]="user.last"/>
+    </div>
+
+    <div>
+      <lable>active</lable>
+      <input type="checkbox" [(ngModel)]="user.active"/>
+    </div>
+
+    <div>
+      <lable>balance</lable>
+      <input type="number"  step="any"  [(ngModel)]="user.balance"/>
+    </div>
+
+    <div>
+      <lable>details</lable>
+      <textarea [(ngModel)]="user.details"></textarea>
+    </div>
+
+    <div>
+      <button type="reset">reset</button>
+      <button type="submit">save</button>
+    </div>
+
+  </form>
+
+</div>

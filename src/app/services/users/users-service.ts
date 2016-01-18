@@ -13,6 +13,9 @@ export default class UsersService extends HTTPService<IUser> {
    */
   protected basepath: string = 'fake-users.json';
 
+  /**
+   *@override
+   */
   constructor(http:Http ) {
     super(http);
   }
